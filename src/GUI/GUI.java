@@ -18,8 +18,10 @@ public class GUI extends JFrame {
   private final String WINDOW_TITLE = "Pixtrom";
   private final int DEFAULT_PIXELS_WIDTH = 32;
   private final int DEFAULT_PIXELS_HEIGHT = 32;
-  private final int WINDOW_WIDTH = 500;
-  private final int WINDOW_HEIGHT = 600;
+  private final int WINDOW_WIDTH = 530;
+  private final int WINDOW_HEIGHT = 700;
+  private final int SWATCHES_SIZE = 12;
+  private final int SWATCHES_RECENT_SIZE = 18;
 
 
   /**
@@ -55,6 +57,9 @@ public class GUI extends JFrame {
     pixelGrid = new PixelGrid(DEFAULT_PIXELS_WIDTH, DEFAULT_PIXELS_HEIGHT);
 
     // ColorChooser setup.
+    // Increase width of swatches.
+    UIManager.put("ColorChooser.swatchesRecentSwatchSize", new Dimension(SWATCHES_RECENT_SIZE, SWATCHES_RECENT_SIZE));
+    UIManager.put("ColorChooser.swatchesSwatchSize", new Dimension(SWATCHES_SIZE, SWATCHES_SIZE));
     colorChooser = new JColorChooser();
     colorChooser.setPreviewPanel(new JPanel()); // Disable preview
     AbstractColorChooserPanel[] chooserPanels = colorChooser.getChooserPanels();
