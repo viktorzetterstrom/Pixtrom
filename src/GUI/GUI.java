@@ -1,5 +1,6 @@
 package GUI;
 
+import File.PixelGridFileHandler;
 import Listeners.ButtonClickListener;
 import Listeners.PixelGridMouseAdapter;
 
@@ -32,8 +33,9 @@ public class GUI extends JFrame {
   private JColorChooser colorChooser;
 
   /**
-   * MouseAdapter
+   * Listeners
    */
+  private ButtonClickListener buttonClickListener;
   private PixelGridMouseAdapter pixelGridMouseAdapter;
 
   /**
@@ -74,7 +76,7 @@ public class GUI extends JFrame {
 
     // Mouseadapter.
     pixelGridMouseAdapter = new PixelGridMouseAdapter(pixelGrid, colorChooser, mousePositionLabel);
-
+    buttonClickListener = new ButtonClickListener(pixelGrid);
   }
 
   /**
@@ -110,9 +112,9 @@ public class GUI extends JFrame {
    */
   private void createListeners() {
     // Add buttons.
-    newButton.addActionListener(new ButtonClickListener());
-    saveButton.addActionListener(new ButtonClickListener());
-    loadButton.addActionListener(new ButtonClickListener());
+    newButton.addActionListener(buttonClickListener);
+    saveButton.addActionListener(buttonClickListener);
+    loadButton.addActionListener(buttonClickListener);
 
     // Add PixelGridMouseAdapter to GUI.PixelGrid.
     pixelGrid.addMouseMotionListener(pixelGridMouseAdapter);

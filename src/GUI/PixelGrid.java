@@ -22,6 +22,14 @@ public class PixelGrid extends JPanel {
   }
 
   /**
+   * Constructor with bufferedImage.
+   * @param bufferedImage
+   */
+  public PixelGrid(BufferedImage bufferedImage) {
+    this.bufferedImage = bufferedImage;
+  }
+
+  /**
    * Resets the buffered Image by painting it white.
    * @param bufferedImage
    */
@@ -56,8 +64,8 @@ public class PixelGrid extends JPanel {
   }
 
   /**
-   * Returns the
-   * @return Width.
+   * Returns the factor to multiply current x-position with to get correct pixel.
+   * @return x-coordinate multiplication factor
    */
   public double getWidthFactor() {
     double factor = (double) bufferedImage.getWidth() / getWidth();
@@ -65,11 +73,19 @@ public class PixelGrid extends JPanel {
   }
 
   /**
-   * Getter for height.
-   * @return Height
+   * Returns the factor to multiply current y-position with to get correct pixel.
+   * @return y-coordinate multiplication factor
    */
   public double getHeightFactor() {
     double factor = (double) bufferedImage.getHeight() / getHeight();
     return factor;
+  }
+
+  /**
+   * Getter for bufferedImage
+   * @return BufferedImage
+   */
+  public BufferedImage getBufferedImage() {
+    return bufferedImage;
   }
 }
