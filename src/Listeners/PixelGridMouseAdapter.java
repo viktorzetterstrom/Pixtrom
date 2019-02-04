@@ -14,6 +14,7 @@ import java.awt.event.MouseEvent;
 public class PixelGridMouseAdapter extends MouseAdapter {
   private JLabel positionLabel;
   private PixelGrid pixelGrid;
+  private JColorChooser colorChooser;
   private Point coordinate;
 
   /**
@@ -21,9 +22,10 @@ public class PixelGridMouseAdapter extends MouseAdapter {
    * @param positionLabel JLabel where position will be printed.
    * @param pixelGrid PixelGrid
    */
-  public PixelGridMouseAdapter(PixelGrid pixelGrid, JLabel positionLabel) {
-    this.positionLabel = positionLabel;
+  public PixelGridMouseAdapter(PixelGrid pixelGrid, JColorChooser colorChooser, JLabel positionLabel) {
     this.pixelGrid = pixelGrid;
+    this.colorChooser = colorChooser;
+    this.positionLabel = positionLabel;
     coordinate = new Point();
   }
 
@@ -61,6 +63,6 @@ public class PixelGridMouseAdapter extends MouseAdapter {
   @Override
   public void mousePressed(MouseEvent e) {
     Point current = coordinate.getLocation();
-    pixelGrid.setRGB((int) current.getX(), (int) current.getY(), Color.black.getRGB());
+    pixelGrid.setRGB((int) current.getX(), (int) current.getY(), colorChooser.getColor().getRGB());
   }
 }

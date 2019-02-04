@@ -73,7 +73,7 @@ public class GUI extends JFrame {
     mousePositionLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 
     // Mouseadapter.
-    pixelGridMouseAdapter = new PixelGridMouseAdapter(pixelGrid, mousePositionLabel);
+    pixelGridMouseAdapter = new PixelGridMouseAdapter(pixelGrid, colorChooser, mousePositionLabel);
 
   }
 
