@@ -22,7 +22,12 @@ public class PixelGridFileHandler {
     int retrieval = chooser.showSaveDialog(null);
     if (retrieval == JFileChooser.APPROVE_OPTION) {
       try {
-        File outputFile  = new File(chooser.getSelectedFile() + ".png");
+        // Make sure .png is used.
+        String fileName = chooser.getSelectedFile().toString();
+        if (!fileName.endsWith(".png")) fileName += ".png";
+
+        // Save file.
+        File outputFile  = new File(fileName);
         ImageIO.write(pixelGrid.getBufferedImage(), "png", outputFile);
       } catch (IOException ioex) {
         ioex.printStackTrace();
@@ -30,6 +35,10 @@ public class PixelGridFileHandler {
     }
   }
 
+  /**
+   * Loads a BufferedImage from disk and changes the image inside PixelGrid.
+   * @param pixelGrid
+   */
   public static void load(PixelGrid pixelGrid) {
     JFileChooser chooser = new JFileChooser();
     int retrieval = chooser.showOpenDialog(null);
