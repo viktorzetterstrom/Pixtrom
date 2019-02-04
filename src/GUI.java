@@ -1,9 +1,12 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.colorchooser.AbstractColorChooserPanel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * UI Class that 
@@ -36,8 +39,13 @@ public class GUI extends JFrame implements ActionListener {
    */
   private void initiateInstanceVariables() {
     // BufferedImage representing the image.
-    BufferedImage image = new BufferedImage(PIXELS_WIDTH, PIXELS_HEIGHT, BufferedImage.TYPE_INT_ARGB);
-    pixelGrid = new PixelGrid(image);
+    //BufferedImage image = new BufferedImage(PIXELS_WIDTH, PIXELS_HEIGHT, BufferedImage.TYPE_INT_ARGB);
+    try {
+      BufferedImage image = ImageIO.read(new File("32x32_empty.jpeg"));
+      pixelGrid = new PixelGrid(image);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
 
     // ColorChooser setup.
     colorChooser = new JColorChooser();

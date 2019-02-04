@@ -11,7 +11,7 @@ public class PixelGrid extends JPanel {
 
   @Override
   protected void paintComponent(Graphics g) {
-    g.drawImage(bufferedImage, 0, 0, getWidth(), getHeight(), null);
     super.paintComponent(g);
+    g.drawImage(bufferedImage, 0, 0, getWidth(), getHeight(), null);
   }
 }
