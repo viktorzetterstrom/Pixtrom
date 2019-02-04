@@ -1,13 +1,11 @@
-import Listeners.ButtonClickListener;
-import Listeners.MousePositionListener;
+package GUI;
 
-import javax.imageio.ImageIO;
+import Listeners.ButtonClickListener;
+import Listeners.PixelGridMouseAdapter;
+
 import javax.swing.*;
 import javax.swing.colorchooser.AbstractColorChooserPanel;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 /**
  * Main class responsible for the UI and its events.
@@ -17,8 +15,8 @@ public class GUI extends JFrame {
    * Standard settings.
    */
   private final String WINDOW_TITLE = "Pixtrom";
-  private final int PIXELS_WIDTH = 32;
-  private final int PIXELS_HEIGHT = 32;
+  private final int DEFAULT_PIXELS_WIDTH = 32;
+  private final int DEFAULT_PIXELS_HEIGHT = 32;
   private final int WINDOW_WIDTH = 500;
   private final int WINDOW_HEIGHT = 600;
 
@@ -34,6 +32,11 @@ public class GUI extends JFrame {
   private JColorChooser colorChooser;
 
   /**
+   * MouseAdapter
+   */
+  private PixelGridMouseAdapter pixelGridMouseAdapter;
+
+  /**
    * Constructor
    */
   public GUI() {
@@ -46,18 +49,14 @@ public class GUI extends JFrame {
    * Initiates instance variables of gui.
    */
   private void initiateInstanceVariables() {
-    // BufferedImage representing the image.
-    try {
-      BufferedImage image = ImageIO.read(new File("32x32_empty.jpeg"));
-      pixelGrid = new PixelGrid(image);
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+    // PixelGrid
+    pixelGrid = new PixelGrid(DEFAULT_PIXELS_WIDTH, DEFAULT_PIXELS_HEIGHT);
 
     // ColorChooser setup.
     colorChooser = new JColorChooser();
     colorChooser.setPreviewPanel(new JPanel()); // Disable preview
     AbstractColorChooserPanel[] chooserPanels = colorChooser.getChooserPanels();
+    // Remove all color options except swatches.
     for (AbstractColorChooserPanel chooserPanel : chooserPanels) {
       if(!chooserPanel.getDisplayName().equals("Swatches")) {
         colorChooser.removeChooserPanel(chooserPanel);
@@ -70,7 +69,11 @@ public class GUI extends JFrame {
     loadButton = new JButton("Load");
 
     // Label for cursor position.
-    mousePositionLabel = new JLabel("Pos: ");
+    mousePositionLabel = new JLabel();
+    mousePositionLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+
+    // Mouseadapter.
+    pixelGridMouseAdapter = new PixelGridMouseAdapter(pixelGrid, mousePositionLabel);
 
   }
 
@@ -111,8 +114,8 @@ public class GUI extends JFrame {
     saveButton.addActionListener(new ButtonClickListener());
     loadButton.addActionListener(new ButtonClickListener());
 
-    // Add MousePositionListener to PixelGrid.
-    pixelGrid.addMouseMotionListener(new MousePositionListener(mousePositionLabel));
+    // Add PixelGridMouseAdapter to GUI.PixelGrid.
+    pixelGrid.addMouseMotionListener(pixelGridMouseAdapter);
+    pixelGrid.addMouseListener(pixelGridMouseAdapter);
   }
-
 }
