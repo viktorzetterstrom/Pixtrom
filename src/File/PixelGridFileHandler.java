@@ -4,6 +4,7 @@ import GUI.PixelGrid;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
@@ -29,8 +30,17 @@ public class PixelGridFileHandler {
     }
   }
 
-  public static PixelGrid load(String fileName) {
-
-    return new PixelGrid(10, 10);
+  public static void load(PixelGrid pixelGrid) {
+    JFileChooser chooser = new JFileChooser();
+    int retrieval = chooser.showOpenDialog(null);
+    if (retrieval == JFileChooser.APPROVE_OPTION) {
+      try {
+        File inputFile = chooser.getSelectedFile();
+        BufferedImage bufferedImage = ImageIO.read(inputFile);
+        pixelGrid.setBufferedImage(bufferedImage);
+      } catch (IOException ioex) {
+        ioex.printStackTrace();
+      }
+    }
   }
 }

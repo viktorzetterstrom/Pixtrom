@@ -4,9 +4,9 @@ Pixtrom is a pixel art editor i put together to make something more concrete wit
 ![app](app.png)
 
 ## Some todos
-* Saving/loading.
 * Different PixelGrid sizes.
 * Eraser.
 * Better color chooser.
-* A little shading between pixels.
+* Support more file formats.
+* A little shading between pixels?
 * Menubar?

@@ -18,7 +18,7 @@ public class PixelGrid extends JPanel {
    */
   public PixelGrid(int width, int height) {
     this.bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-    resetBufferedImage(bufferedImage);
+    resetBufferedImage();
   }
 
   /**
@@ -31,9 +31,8 @@ public class PixelGrid extends JPanel {
 
   /**
    * Resets the buffered Image by painting it white.
-   * @param bufferedImage
    */
-  private void resetBufferedImage(BufferedImage bufferedImage) {
+  public void resetBufferedImage() {
     for (int x = 0; x < bufferedImage.getWidth(); x++) {
       for (int y = 0; y < bufferedImage.getHeight(); y++) {
         bufferedImage.setRGB(x, y, Color.white.getRGB());
@@ -58,11 +57,21 @@ public class PixelGrid extends JPanel {
    * @param rgb rgb-value of color.
    */
   public void setRGB(int x, int y, int rgb) {
-    bufferedImage.setRGB(x, y, rgb);
+    int width = bufferedImage.getWidth();
+    int height = bufferedImage.getHeight();
+    if ((0 <= x && x < width) && (0 <= y && y < height)) {
+      bufferedImage.setRGB(x, y, rgb);
+      update();
+    }
+  }
+
+  /**
+   * Redraws the JPanel.
+   */
+  public void update() {
     revalidate();
     repaint();
   }
-
   /**
    * Returns the factor to multiply current x-position with to get correct pixel.
    * @return x-coordinate multiplication factor
@@ -87,5 +96,13 @@ public class PixelGrid extends JPanel {
    */
   public BufferedImage getBufferedImage() {
     return bufferedImage;
+  }
+
+  /**
+   * Function that sets the bufferedImage
+   * @param bufferedImage
+   */
+  public void setBufferedImage(BufferedImage bufferedImage) {
+    this.bufferedImage = bufferedImage;
   }
 }

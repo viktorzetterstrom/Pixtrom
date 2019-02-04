@@ -3,6 +3,7 @@ package Listeners;
 import File.PixelGridFileHandler;
 import GUI.PixelGrid;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -30,13 +31,23 @@ public class ButtonClickListener implements ActionListener {
 
     switch (command) {
       case "New":
-        System.out.println("new");
+        int response = JOptionPane.showConfirmDialog(
+            pixelGrid,
+            "Do you want to create a new file?",
+            "New",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE);
+        if (response == JOptionPane.YES_OPTION) {
+          pixelGrid.resetBufferedImage();
+          pixelGrid.update();
+        }
         break;
       case "Save":
         PixelGridFileHandler.save(pixelGrid);
         break;
       case "Load":
-        System.out.println("load");
+        PixelGridFileHandler.load(pixelGrid);
+        pixelGrid.update();
         break;
     }
   }
