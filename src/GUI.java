@@ -9,7 +9,7 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * UI Class that 
+ * Main class responsible for the UI and its events.
  */
 public class GUI extends JFrame implements ActionListener {
   /**
@@ -22,8 +22,14 @@ public class GUI extends JFrame implements ActionListener {
   private final int WINDOW_HEIGHT = 600;
 
 
-  
+  /**
+   * UI elements.
+   */
   private PixelGrid pixelGrid;
+  private JLabel cursorPositionLabel;
+  private JButton newButton;
+  private JButton saveButton;
+  private JButton loadButton;
   private JColorChooser colorChooser;
 
   /**
@@ -39,7 +45,6 @@ public class GUI extends JFrame implements ActionListener {
    */
   private void initiateInstanceVariables() {
     // BufferedImage representing the image.
-    //BufferedImage image = new BufferedImage(PIXELS_WIDTH, PIXELS_HEIGHT, BufferedImage.TYPE_INT_ARGB);
     try {
       BufferedImage image = ImageIO.read(new File("32x32_empty.jpeg"));
       pixelGrid = new PixelGrid(image);
@@ -57,12 +62,18 @@ public class GUI extends JFrame implements ActionListener {
       }
     }
 
+    // Buttons
+    newButton = new JButton("New");
+    saveButton = new JButton("Save");
+    loadButton = new JButton("Load");
 
+    // Label for cursor position.
+    cursorPositionLabel = new JLabel("Pos: ");
 
   }
 
   /**
-   * Adds gui elements to JFrame.
+   * Add gui elements to JFrame.
    */
   private void makeFrame() {
     // Set JFrame settings.
@@ -72,14 +83,25 @@ public class GUI extends JFrame implements ActionListener {
     setLayout(new BorderLayout());
     setResizable(false);
 
-    // Add Elements.
+    // Add pixelgrid to center.
     add(pixelGrid, BorderLayout.CENTER);
-    add(colorChooser, BorderLayout.SOUTH);
 
+    // Create toolbar with color swatch and buttons for file operations.
+    JPanel toolbar = new JPanel(new BorderLayout());
+    JPanel toolbarButtons = new JPanel(new GridLayout(1, 4));
+    // Add buttons and cursor label.
+    toolbarButtons.add(newButton);
+    toolbarButtons.add(saveButton);
+    toolbarButtons.add(loadButton);
+    toolbarButtons.add(cursorPositionLabel);
+    // Add buttons and color chooser to toolbar and add it to JFrame.
+    toolbar.add(colorChooser, BorderLayout.CENTER);
+    toolbar.add(toolbarButtons, BorderLayout.SOUTH);
+    add(toolbar, BorderLayout.SOUTH);
   }
 
   /**
-   * Adds listeners for the gui.
+   * Add listeners for the gui.
    * @param e ActionEvent
    */
   @Override
