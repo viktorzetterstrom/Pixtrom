@@ -1,6 +1,7 @@
 ![Logo](logo.png)
-# Pixtrom - A pixel art maker
-Pixel art editor I created to build something with java. It is still a work in progress.
+# Pixtrom
+Pixtrom is a pixel art editor i put together to make something more concrete with Java. It is still a work in progress with new features being added continuously. Pixel editing skills not included with app.
+![app](app.png)
 
 ## Some todos
 * Saving/loading.
