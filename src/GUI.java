@@ -1,9 +1,10 @@
+import Listeners.ButtonClickListener;
+import Listeners.MousePositionListener;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.colorchooser.AbstractColorChooserPanel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -11,7 +12,7 @@ import java.io.IOException;
 /**
  * Main class responsible for the UI and its events.
  */
-public class GUI extends JFrame implements ActionListener {
+public class GUI extends JFrame {
   /**
    * Standard settings.
    */
@@ -26,7 +27,7 @@ public class GUI extends JFrame implements ActionListener {
    * UI elements.
    */
   private PixelGrid pixelGrid;
-  private JLabel cursorPositionLabel;
+  private JLabel mousePositionLabel;
   private JButton newButton;
   private JButton saveButton;
   private JButton loadButton;
@@ -38,6 +39,7 @@ public class GUI extends JFrame implements ActionListener {
   public GUI() {
     initiateInstanceVariables();
     makeFrame();
+    createListeners();
   }
 
   /**
@@ -68,7 +70,7 @@ public class GUI extends JFrame implements ActionListener {
     loadButton = new JButton("Load");
 
     // Label for cursor position.
-    cursorPositionLabel = new JLabel("Pos: ");
+    mousePositionLabel = new JLabel("Pos: ");
 
   }
 
@@ -93,7 +95,7 @@ public class GUI extends JFrame implements ActionListener {
     toolbarButtons.add(newButton);
     toolbarButtons.add(saveButton);
     toolbarButtons.add(loadButton);
-    toolbarButtons.add(cursorPositionLabel);
+    toolbarButtons.add(mousePositionLabel);
     // Add buttons and color chooser to toolbar and add it to JFrame.
     toolbar.add(colorChooser, BorderLayout.CENTER);
     toolbar.add(toolbarButtons, BorderLayout.SOUTH);
@@ -101,11 +103,16 @@ public class GUI extends JFrame implements ActionListener {
   }
 
   /**
-   * Add listeners for the gui.
-   * @param e ActionEvent
+   * Adds listeners to UI elements.
    */
-  @Override
-  public void actionPerformed(ActionEvent e) {
+  private void createListeners() {
+    // Add buttons.
+    newButton.addActionListener(new ButtonClickListener());
+    saveButton.addActionListener(new ButtonClickListener());
+    loadButton.addActionListener(new ButtonClickListener());
 
+    // Add MousePositionListener to PixelGrid.
+    pixelGrid.addMouseMotionListener(new MousePositionListener(mousePositionLabel));
   }
+
 }
