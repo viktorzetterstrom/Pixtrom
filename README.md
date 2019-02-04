@@ -1,3 +1,4 @@
+![Logo](logo.png)
 # Pixtrom - A pixel art maker
 Pixel art editor I created to build something with java. It is still a work in progress.
 
